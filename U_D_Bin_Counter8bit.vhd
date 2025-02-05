@@ -1,35 +1,33 @@
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
 
-Entity U_D_Bin_Counter8bit is port
-  (
-    CLK : in std_logic:='0';
-    RESET_n : in std_logic:='0';
-    CLK_EN : in std_logic:='0';
-    UP1_DOWN0 : in std_logic:='0';
-    COUNTER_BITS : in std_logic_vector(3 downto 0)
-  );
-end Entity;
+ENTITY U_D_Bin_Counter8bit IS PORT (
+  CLK : IN STD_LOGIC := '0';
+  RESET_n : IN STD_LOGIC := '0';
+  CLK_EN : IN STD_LOGIC := '0';
+  UP1_DOWN0 : IN STD_LOGIC := '0';
+  COUNTER_BITS : IN STD_LOGIC_VECTOR(3 DOWNTO 0)
+);
+END ENTITY;
 
-architecture one of U_D_Bin_Counter8bit is
-  signal ud_bin_counter : UNSIGNED(3 downto 0);
-  
-  begin
-    process(CLK, RESET_n) is
-    begin
-      if (RESET_n = '0') then
-        ud_bin_counter <= '0000';
-      elsif(rising_edge(CLK)) then
-        if ((UP1_DOWN0 = '1') AND ( CLK_EN = '1')) then
-          ud_bin_counter <= (ud_bin_counter + 1);
-        elsif ((UP1_DOWN0 = '0') AND (CLK_EN = '1')) then
-          ud_bin_counter <= (ud_bin_counter - 1);
-        end if;
-      end if;
-    end process;
+ARCHITECTURE one OF U_D_Bin_Counter8bit IS
+  SIGNAL ud_bin_counter : UNSIGNED(3 DOWNTO 0);
 
-    COUNTER_BITS <= std_logic_vector(ud_bin_counter);
+BEGIN
+  PROCESS (CLK, RESET_n) IS
+  BEGIN
+    IF (RESET_n = '0') THEN
+      ud_bin_counter <= '0000';
+    ELSIF (rising_edge(CLK)) THEN
+      IF ((UP1_DOWN0 = '1') AND (CLK_EN = '1')) THEN
+        ud_bin_counter <= (ud_bin_counter + 1);
+      ELSIF ((UP1_DOWN0 = '0') AND (CLK_EN = '1')) THEN
+        ud_bin_counter <= (ud_bin_counter - 1);
+      END IF;
+    END IF;
+  END PROCESS;
 
-  end;
+  COUNTER_BITS <= STD_LOGIC_VECTOR(ud_bin_counter);
 
+END;

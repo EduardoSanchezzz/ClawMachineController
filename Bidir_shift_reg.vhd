@@ -1,34 +1,33 @@
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
 
-Entity Bidir_shift_reg is port
-  (
-    CLK : in std_logic:='0';
-    RESET_n : in std_logic:='0';
-    CLK_EN : in std_logic:='0';
-    LEFT0_RIGHT1 : in std_logic:='0';
-    REG_BITS : in std_logic_vector(3 downto 0)
-  );
-end Entity;
+ENTITY Bidir_shift_reg IS PORT (
+  CLK : IN STD_LOGIC := '0';
+  RESET_n : IN STD_LOGIC := '0';
+  CLK_EN : IN STD_LOGIC := '0';
+  LEFT0_RIGHT1 : IN STD_LOGIC := '0';
+  REG_BITS : IN STD_LOGIC_VECTOR(3 DOWNTO 0)
+);
+END ENTITY;
 
-architecture one of Bidir_shift_reg is
-  signal sreg : std_logic_vector(3 downto 0);
-  
-  begin
-    process(CLK, RESET_n) is
-    begin
-      if (RESET_n = '0') then
-        sreg <= '0000';
-      elsif(rising_edge(CLK) AND ( CLK_EN = '1')) then
-        if (LEFT0_RIGHT1 = '1') then
-          sreg(3 downto 0) <= '1' & sreg(3 downto 1);
-        elsif (UP1_DOWN0 = '0') then
-          sreg(3 downto 0) <= sreg(2 downto 0) & '0';
-        end if;
-      end if;
-    end process;
+ARCHITECTURE one OF Bidir_shift_reg IS
+  SIGNAL sreg : STD_LOGIC_VECTOR(3 DOWNTO 0);
 
-    REG_BITS <= sreg;
+BEGIN
+  PROCESS (CLK, RESET_n) IS
+  BEGIN
+    IF (RESET_n = '0') THEN
+      sreg <= '0000';
+    ELSIF (rising_edge(CLK) AND (CLK_EN = '1')) THEN
+      IF (LEFT0_RIGHT1 = '1') THEN
+        sreg(3 DOWNTO 0) <= '1' & sreg(3 DOWNTO 1);
+      ELSIF (UP1_DOWN0 = '0') THEN
+        sreg(3 DOWNTO 0) <= sreg(2 DOWNTO 0) & '0';
+      END IF;
+    END IF;
+  END PROCESS;
 
-  end;
+  REG_BITS <= sreg;
+
+END;

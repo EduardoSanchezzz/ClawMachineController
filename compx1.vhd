@@ -1,20 +1,20 @@
-library ieee;
-use ieee.std_logic_1164.all;
-library work;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+LIBRARY work;
 
-entity compx1 is
-  port(
-    A, B :in std_logic;
-    compx1_out1, compx1_out2, compx1_out3 : out std_logic
+ENTITY compx1 IS
+  PORT (
+    A, B : IN STD_LOGIC;
+    compx1_out1, compx1_out2, compx1_out3 : OUT STD_LOGIC
   );
-end compx1;
+END compx1;
 
-architecture compx_logic of compx1 is
-  
-begin
+ARCHITECTURE compx_logic OF compx1 IS
+
+BEGIN
   -- derived from truth tables
   compx1_out1 <= (NOT A) AND B;
   compx1_out2 <= A XNOR B;
   compx1_out3 <= A AND (NOT B);
 
-end architecture compx_logic;
+END ARCHITECTURE compx_logic;
