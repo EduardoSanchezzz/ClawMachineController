@@ -23,7 +23,7 @@ architecture one of U_D_Bin_Counter8bit is
       elsif(rising_edge(CLK)) then
         if ((UP1_DOWN0 = '1') AND ( CLK_EN = '1')) then
           ud_bin_counter <= (ud_bin_counter + 1);
-        elsif (UP1_DOWN0 = '0' AND (CLK_EN = '1')) then
+        elsif ((UP1_DOWN0 = '0') AND (CLK_EN = '1')) then
           ud_bin_counter <= (ud_bin_counter - 1);
         end if;
       end if;
