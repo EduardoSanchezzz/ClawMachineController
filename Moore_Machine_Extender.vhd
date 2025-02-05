@@ -5,7 +5,7 @@ USE ieee.numeric_std.ALL;
 ENTITY Moore_Machine_Extender IS PORT (
   clk_input, rst_n, ext_en, ext_pb : IN STD_LOGIC;
   leds : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
-  ext_out, grapp_en, bidir_en, bidir_LR : OUT;
+  ext_out, grapp_en, bidir_en, bidir_LR : OUT STD_LOGIC
 );
 END ENTITY;
 
