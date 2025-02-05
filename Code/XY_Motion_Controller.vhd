@@ -16,7 +16,7 @@ ENTITY XY_Motion Controller IS PORT (
   X_Target_Output : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
   Y_Target_Output : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
   EXTENDER_EN : OUT STD_LOGIC := '0';
-  SYSTEM FAULT_LED : OUT STD_LOGIC := '0';
+  SYSTEM_FAULT_LED : OUT STD_LOGIC := '0';
 );
 END ENTITY;
 
@@ -57,7 +57,7 @@ BEGIN
         ELSIF (X_EQ = '1') THEN
           next_state <= Y_MVMT;
         ELSIF (Y_EQ = '1') THEN
-          next_state <- X_MVMT;
+          next_state <= X_MVMT;
         ELSE
           next_state <= XY_MVMT;
         END IF;
@@ -87,19 +87,19 @@ BEGIN
   BEGIN
     --ASSIGN TARGET INPUT TO VARIABLE IF EXTENDER IS NOT MOVING
     IF (current_state = COPY_TARGET) THEN
-      current xtarget := X_Target_Input;
+      current_xtarget := X_Target_Input;
       current_ytarget := Y_Target_Input;
-      EXTENDER EN <= '1';
+      EXTENDER_EN <= '1';
     ELSE
       current_xtarget := current_xtarget;
       current_ytarget := current_ytarget;
-      EXTENDER EN <= '0';
+      EXTENDER_EN <= '0';
     END IF;
     --EXTENDER ENABLED ONLY WHEN THERE IS NO MOVEMENT 
     IF (current_state = NO_MVMT) THEN
-      EXTENDER EN <= '1';
+      EXTENDER_EN <= '1';
     ELSE
-      EXTENDER EN <= '0';
+      EXTENDER_EN <= '0';
     END IF;
     --X CLOCK ENABLE OUTPUT
     IF ((current_state = XY_MVMT) OR (current_state = X_MVMT)) THEN
@@ -109,7 +109,7 @@ BEGIN
       X_CLK_EN <= '0';
     END IF;
     --Y CLOCK ENABLE OUTPUT
-    IF ((current state = XY_MVMT) OR (current_state = Y_MVMT)) THEN
+    IF ((current_state = XY_MVMT) OR (current_state = Y_MVMT)) THEN
       Y_CLK_EN <= NOT (EXTENDER_OUT OR Y_EQ);
     ELSE
       Y_CLK_EN <= '0';
@@ -120,7 +120,7 @@ BEGIN
     ELSE
       SYSTEM_FAULT_LED <= '0';
     END IF;
-    --SYSTEM FAULT_LED<<= '0';
+
     X_Up_Down <= XTARGET_GT;
     Y_Up_Down <= YTARGET_GT;
     X_Target_Output <= current_xtarget;
