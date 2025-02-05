@@ -108,7 +108,7 @@ BEGIN
   --ASSIGN VALUES TO OUTPUTS
   leds(15 DOWNTO 12) <= XPOS;
   leds(11 DOWNTO 8) <= Y_POS;
-  leds(0) <= sys_error :
+  leds(0) <= sys_error;
   leds(7 DOWNTO 4) <= ex_pos;
   --user LEDS
   leds (2) <= extender_EN;
